@@ -10,13 +10,17 @@
 	height: 105px;
 	color: #FF0000;
 	border: #FFFFFF 1px dotted;
+	list-style: none;
+	text-align: left;
 }
 #calendar li a {
 	color: #FF0000;
 }
 #calendar li img {
 	display: block;
-	margin: auto;
+	float: right;
+	margin-right: 10px;
+	margin-left: 10px;
 }
 #calendar .month {
 	background: #000000;

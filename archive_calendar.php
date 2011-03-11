@@ -33,8 +33,6 @@ function getPluginCss(){
 		$css = WEBPATH. '/plugins/archive_calendar/archive_calendar.css';
 	}
 	echo '<link rel="stylesheet" href="'.$css.'" type="text/css" />';
-//		zp_register_filter('theme_head','colorbox_css');
-//		zp_register_filter('theme_head', $css);
 }
 
 class Calendar {
