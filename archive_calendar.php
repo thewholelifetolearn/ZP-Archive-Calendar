@@ -11,13 +11,31 @@
  * version 1.0: Creation of the plug-in
  * version 1.1: Improvement of the code
  * version 1.2: Added possible custom CSS
- * version 1.52: dépassement de tableau dans la fonction "next_calendar_image()"
+ * version 1.52: dÃ©passement de tableau dans la fonction "next_calendar_image()"
  */
 
 $plugin_description = gettext("Prints a calendar with a picture in each day where pictures belong to.");
 $plugin_author = "the Whole Life To Learn";
 $plugin_version = '1.52'; 
-$option_interface = new Calendar();
+$option_interface = 'Calendar';
+
+if (in_context(ZP_INDEX)) {
+	zp_register_filter('theme_head','getPluginCss'); // insert the meta tags into the <head></head> if on a theme page.
+}
+
+function getPluginCss(){
+	global $_zp_themeroot;
+
+	$css = SERVERPATH.'/'.THEMEFOLDER.'/'. getCurrentTheme() . '/archive_calendar.css';
+	if (file_exists($css)) {
+		$css = $_zp_themeroot . '/archive_calendar.css';
+	} else {
+		$css = WEBPATH. '/plugins/archive_calendar/archive_calendar.css';
+	}
+	echo '<link rel="stylesheet" href="'.$css.'" type="text/css" />';
+//		zp_register_filter('theme_head','colorbox_css');
+//		zp_register_filter('theme_head', $css);
+}
 
 class Calendar {
 
@@ -34,7 +52,6 @@ class Calendar {
 	public function __construct() {
 		$this->getDates();
 		$this->variablesInit();
-		$this->getPluginCss();
 	}
 	
 	/**
@@ -56,20 +73,6 @@ class Calendar {
 		);
 		
 		return $tmp;
-	}
-	
-	function getPluginCss(){
-		global $_zp_themeroot;
-		
-		$css = SERVERPATH.'/'.THEMEFOLDER.'/'. getCurrentTheme() . '/archive_calendar.css';
-		if (file_exists($css)) {
-			$css = $_zp_themeroot . '/archive_calendar.css';
-		} else {
-			$css = WEBPATH. '/plugins/archive_calendar/archive_calendar.css';
-		}
-		addPluginScript('
-			<link rel="stylesheet" type="text/css" href="' . $css.'" />
-		');
 	}
 
 	/**
@@ -247,7 +250,6 @@ class Calendar {
 	 *
 	 */
 	public function printMonthCalendar() {
-		$this->getPluginCss();
 		echo '<ul id="calendar">';
 		echo $this->getMonthCalendar();
 		echo '</ul>';
@@ -275,7 +277,6 @@ class Calendar {
 	 *
 	 */
 	public function printYearCalendar() {
-		$this->getPluginCss();
 		echo '<ul id="calendar">';
 		echo $this->getYearCalendar();
 		echo '</ul>';
