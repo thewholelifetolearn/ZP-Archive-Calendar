@@ -205,16 +205,18 @@ class Calendar {
 		$days = $this->imgObjCreation( $allDays );
 		$this->next_calendar_image($days, 0);
 		for ( $i = ( 2 - date('N', $this->strToTime ) ); $i <= date('t', $this->strToTime ); $i++ ) {
-			$line .= '<li';
+			$line .= '<li class="';
 			if ( $i > 0 ) {
 				if( date('N', strtotime( $this->year . '-' . $this->month . '-' . $i ) ) == 1 ){ // Mondays
-					$line .= ' class="first day">' . $i;
-				} else { // Other days
-					$line .= ' class="day">' . $i;
+					$line .= 'first ';
 				}
+				$line .= 'day">' . $i;
 			}
 			else { // Box that is displayed for "beauty" reason
-				$line .= ' class="empty">';
+			    if($i == ( 2 - date('N', $this->strToTime ))) {
+				$line .= 'first ';
+			    }
+			    $line .= 'empty">';
 			}
 			if ( ($i > 0) AND !empty($days) AND ($i == substr(getImageDate(), 8, 2) ) ) {
 				$line .= '<a href="'.getSearchURL('', substr( getImageDate(), 0, 10 ), 'date', 0).'">';
