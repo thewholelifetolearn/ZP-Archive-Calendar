@@ -14,7 +14,7 @@
  * version 1.52: dépassement de tableau dans la fonction "next_calendar_image()"
  */
 
-$plugin_description = gettext("Prints a calendar with a picture in each day where pictures belong to.");
+$plugin_description = gettext_th("Prints a calendar with a picture in each day where pictures belong to.");
 $plugin_author = "the Whole Life To Learn";
 $plugin_version = '1.52'; 
 $option_interface = 'Calendar';
@@ -63,10 +63,10 @@ class Calendar {
 				'key' => 'calendar_month_year',
 				'type' => OPTION_TYPE_RADIO,
 				'buttons' => array(
-					gettext('Monthly') => 'OPT_MONTH',
-					gettext('Yearly') => 'OPT_YEAR'
+					gettext_th('Monthly') => 'OPT_MONTH',
+					gettext_th('Yearly') => 'OPT_YEAR'
 				),
-				'desc' => gettext('Choose if you wish to display a monthly calendar (1 month per page or a yearly calendar (12 month per page)')
+				'desc' => gettext_th('Choose if you wish to display a monthly calendar (1 month per page or a yearly calendar (12 month per page)')
 			)
 		);
 		
