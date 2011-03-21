@@ -1,0 +1,48 @@
+#
+# The Whole Life To Learn <thewholelifetolearn@gmail.com>, 2011.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Archive Calendar (Zenphoto)\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-03-21 19:53+0100\n"
+"PO-Revision-Date: 2011-03-21 20:09+0100\n"
+"Last-Translator: The Whole Life To Learn <thewholelifetolearn@gmail.com>\n"
+"Language-Team: english <thewholelifetolearn@gmail.com>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF8\n"
+"Content-Transfer-Encoding: -\n"
+"X-Poedit-Language: French\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: gettext_th;gettext_pl\n"
+"X-Poedit-Basepath: /developpement/referentiel/zenphoto-plugin-"
+"archive_calendar/\n"
+"X-Poedit-Country: FRANCE\n"
+"X-Poedit-SearchPath-0: .\n"
+"Plural-Forms: -\n"
+
+#: archive_calendar.php:17
+msgid "Prints a calendar with a picture in each day where pictures belong to."
+msgstr ""
+"Affiche un calendrier avec une image pour chaque jour liée à cette date"
+
+#: archive_calendar.php:62
+msgid "Monthy/Yearly"
+msgstr "Mensuel/Annuel"
+
+#: archive_calendar.php:66
+msgid "Monthly"
+msgstr "Mensuel"
+
+#: archive_calendar.php:67
+msgid "Yearly"
+msgstr "Annuel"
+
+#: archive_calendar.php:69
+msgid ""
+"Choose if you wish to display a monthly calendar (1 month per page or a "
+"yearly calendar (12 month per page)"
+msgstr ""
+"Choisissez si vous souhaitez un affichage mensuel ( 1 mois / page ) ou "
+"annuel ( 12mois / page )"

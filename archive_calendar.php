@@ -8,15 +8,11 @@
  * @package plugins
  *
  *
- * version 1.0: Creation of the plug-in
- * version 1.1: Improvement of the code
- * version 1.2: Added possible custom CSS
- * version 1.52: dépassement de tableau dans la fonction "next_calendar_image()"
  */
 
-$plugin_description = gettext_th("Prints a calendar with a picture in each day where pictures belong to.");
-$plugin_author = "the Whole Life To Learn";
-$plugin_version = '1.52'; 
+$plugin_description = gettext_pl("Prints a calendar with a picture in each day where pictures belong to.", 'archive_calendar');
+$plugin_author = "The Whole Life To Learn";
+$plugin_version = '2.00';
 $option_interface = 'Calendar';
 
 if (in_context(ZP_INDEX)) {
@@ -59,14 +55,14 @@ class Calendar {
 	 */
 	function getOptionsSupported() {
 		$tmp = array(
-			gettext('Monthy/Yearly') => array(
+			gettext_pl('Monthy/Yearly', 'archive_calendar') => array(
 				'key' => 'calendar_month_year',
 				'type' => OPTION_TYPE_RADIO,
 				'buttons' => array(
-					gettext_th('Monthly') => 'OPT_MONTH',
-					gettext_th('Yearly') => 'OPT_YEAR'
+					gettext_pl('Monthly', 'archive_calendar') => 'OPT_MONTH',
+					gettext_pl('Yearly', 'archive_calendar') => 'OPT_YEAR'
 				),
-				'desc' => gettext_th('Choose if you wish to display a monthly calendar (1 month per page or a yearly calendar (12 month per page)')
+				'desc' => gettext_pl('Choose if you wish to display a monthly calendar (1 month per page or a yearly calendar (12 month per page)', 'archive_calendar')
 			)
 		);
 		
