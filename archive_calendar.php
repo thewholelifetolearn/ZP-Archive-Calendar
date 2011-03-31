@@ -169,7 +169,7 @@ class Calendar {
 		
 		if( getOption('calendar_month_year') == 'OPT_MONTH' ) {
 			$line .= '<a href="' . WEBPATH . '/index.php?p=archive&year=' . date('Y', strtotime( $this->minDate . ' -1 Month') ) . '&month=' . date('m', strtotime( $this->minDate . ' -1 Month') ) . '" id="prev">&lt;&lt;</a>';
-			$line .= ' ' . strftime('%B', $this->strToTime ) .' '. $this->year . ' ';
+			$line .= ' ' . ucfirst( strftime('%B', $this->strToTime ) ) .' '. $this->year . ' ';
 			$line .= '<a href="' . WEBPATH . '/index.php?p=archive&year=' . date('Y', strtotime( $this->minDate . ' +1 Month') ) . '&month=' . date('m', strtotime( $this->minDate . ' +1 Month') ) . '" id="next">&gt;&gt;</a>';
 		} elseif( getOption('calendar_month_year') == 'OPT_YEAR' ) {
 			$line .= '<a href="' . WEBPATH . '/index.php?p=archive&year=' . date('Y', strtotime( $this->minDate . ' -1 Year') ) . '&month=' . date('m', strtotime( $this->minDate . ' -1 Year') ) . '" id="prev">&lt;&lt;</a>';
@@ -178,13 +178,13 @@ class Calendar {
 		}
 		
 		$line .= '</li>';
-		$line .= '<li class="first weekday">'.strftime('%A', strtotime('2009-12-07' ) ).'</li>';
-		$line .= '<li class="weekday">'.strftime('%A', strtotime('2009-12-08' ) ).'</li>';
-		$line .= '<li class="weekday">'.strftime('%A', strtotime('2009-12-09' ) ).'</li>';
-		$line .= '<li class="weekday">'.strftime('%A', strtotime('2009-12-10' ) ).'</li>';
-		$line .= '<li class="weekday">'.strftime('%A', strtotime('2009-12-11' ) ).'</li>';
-		$line .= '<li class="weekday">'.strftime('%A', strtotime('2009-12-12' ) ).'</li>';
-		$line .= '<li class="weekday">'.strftime('%A', strtotime('2009-12-13' ) ).'</li>';
+		$line .= '<li class="first weekday">'.ucfirst( strftime('%A', strtotime('2009-12-07' ) ) ).'</li>';
+		$line .= '<li class="weekday">'.ucfirst( strftime('%A', strtotime('2009-12-08' ) ) ).'</li>';
+		$line .= '<li class="weekday">'.ucfirst( strftime('%A', strtotime('2009-12-09' ) ) ).'</li>';
+		$line .= '<li class="weekday">'.ucfirst( strftime('%A', strtotime('2009-12-10' ) ) ).'</li>';
+		$line .= '<li class="weekday">'.ucfirst( strftime('%A', strtotime('2009-12-11' ) ) ).'</li>';
+		$line .= '<li class="weekday">'.ucfirst( strftime('%A', strtotime('2009-12-12' ) ) ).'</li>';
+		$line .= '<li class="weekday">'.ucfirst( strftime('%A', strtotime('2009-12-13' ) ) ).'</li>';
 		
 		return $line;
 	}
@@ -248,6 +248,7 @@ class Calendar {
 	public function printMonthCalendar() {
 		echo '<ul id="calendar">';
 		echo $this->getMonthCalendar();
+                echo '<div class="clear"></div>';
 		echo '</ul>';
 	}
 	
@@ -275,6 +276,7 @@ class Calendar {
 	public function printYearCalendar() {
 		echo '<ul id="calendar">';
 		echo $this->getYearCalendar();
+                echo '<div class="clear"></div>';
 		echo '</ul>';
 	}
 }

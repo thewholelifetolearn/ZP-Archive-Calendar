@@ -31,7 +31,7 @@
 	margin-top: 2em;
 }
 #calendar .first {
-	clear: both;
+	clear: left;
 }
 #calendar .weekday {
 	height: 25px;
