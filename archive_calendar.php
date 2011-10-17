@@ -43,6 +43,7 @@ class Calendar {
 	private $maxDate;
 	private $strToTime;
 	private $pageDisplay;
+	private $classes;
 	
 	/**
 	 * class constructor
@@ -109,6 +110,15 @@ class Calendar {
 		$this->strToTime = strtotime( $this->minDate );
 		$this->pageDisplay = 'archive';
 		setOptionDefault('calendar_month_year', 'OPT_MONTH');
+		$this->classes = array(
+			'calendar' => 'calendar',
+			'year' => 'year',
+			'month' => 'month',
+			'first' => 'first',
+			'weekday' => 'weekday',
+			'empty' => 'empty',
+			'day' => 'day'
+			);
 	}
 
 	/**
@@ -171,7 +181,7 @@ class Calendar {
 	 * @return string
 	 */
 	protected function getCalHeader() {
-		$line = '<li class="month">';
+		$line = '<li class="'.$this->classes['month'].'">';
 		
 		if( getOption('calendar_month_year') == 'OPT_MONTH' ) {
 			$line .= '<a href="' . WEBPATH . '/index.php?p='.$this->pageDisplay.'&year=' . date('Y', strtotime( $this->minDate . ' -1 Month') ) . '&month=' . date('m', strtotime( $this->minDate . ' -1 Month') ) . '" id="prev">&lt;&lt;</a>';
@@ -184,13 +194,13 @@ class Calendar {
 		}
 		
 		$line .= '</li>';
-		$line .= '<li class="first weekday">'.strftime('%A', strtotime('2009-12-07' ) ).'</li>';
-		$line .= '<li class="weekday">'.strftime('%A', strtotime('2009-12-08' ) ).'</li>';
-		$line .= '<li class="weekday">'.strftime('%A', strtotime('2009-12-09' ) ).'</li>';
-		$line .= '<li class="weekday">'.strftime('%A', strtotime('2009-12-10' ) ).'</li>';
-		$line .= '<li class="weekday">'.strftime('%A', strtotime('2009-12-11' ) ).'</li>';
-		$line .= '<li class="weekday">'.strftime('%A', strtotime('2009-12-12' ) ).'</li>';
-		$line .= '<li class="weekday">'.strftime('%A', strtotime('2009-12-13' ) ).'</li>';
+		$line .= '<li class="'.$this->classes['first'].' '.$this->classes['weekday'].' ">'.strftime('%A', strtotime('2009-12-07' ) ).'</li>';
+		$line .= '<li class="'.$this->classes['weekday'].'">'.strftime('%A', strtotime('2009-12-08' ) ).'</li>';
+		$line .= '<li class="'.$this->classes['weekday'].'">'.strftime('%A', strtotime('2009-12-09' ) ).'</li>';
+		$line .= '<li class="'.$this->classes['weekday'].'">'.strftime('%A', strtotime('2009-12-10' ) ).'</li>';
+		$line .= '<li class="'.$this->classes['weekday'].'">'.strftime('%A', strtotime('2009-12-11' ) ).'</li>';
+		$line .= '<li class="'.$this->classes['weekday'].'">'.strftime('%A', strtotime('2009-12-12' ) ).'</li>';
+		$line .= '<li class="'.$this->classes['weekday'].'">'.strftime('%A', strtotime('2009-12-13' ) ).'</li>';
 		
 		return $line;
 	}
@@ -210,15 +220,15 @@ class Calendar {
 			$line .= '<li class="';
 			if ( $i > 0 ) {
 				if( date('N', strtotime( $this->year . '-' . $this->month . '-' . $i ) ) == 1 ){ // Mondays
-					$line .= 'first ';
+					$line .= $this->classes['first'] . ' ';
 				}
-				$line .= 'day">' . $i;
+				$line .= $this->classes['day'] . '">' . $i;
 			}
 			else { // Box that is displayed for "beauty" reason
 			    if($i == ( 2 - date('N', $this->strToTime ))) {
-				$line .= 'first ';
+				$line .= $this->classes['first'] . ' ';
 			    }
-			    $line .= 'empty">';
+			    $line .= $this->classes['empty'] . '">';
 			}
 			if ( ($i > 0) AND !empty($days) AND ($i == substr(getImageDate(), 8, 2) ) ) {
 				$line .= '<a href="'.getSearchURL('', substr( getImageDate(), 0, 10 ), 'date', 0).'">';
@@ -235,8 +245,22 @@ class Calendar {
 		return $line;
 	}
 	
+	/**
+	 * Sets the page where the calendar is displayed
+	 *
+	 * @param string name of the page
+	 */
 	public function setPage($page) {
 		$this->pageDisplay = $page;
+	}
+	
+	/**
+	 * Modify the default classes for display
+	 *
+	 * @param array('calendar', 'year',	'month', 'first', 'weekday', 'empty', 'day')
+	 */
+	public function setClasses($class) {
+		$this->classes = array_merge($this->classes, $class);
 	}
 
 	/**
@@ -313,10 +337,13 @@ function getYearCalendar() {
  * Prints a monthly or yearly based calendar depending on the option defined in the administration panel
  *
  */
-function printCalendar($page = null) {
+function printCalendar($page = null, $class = null) {
 	$cal = new Calendar();
 	if(!is_null($page)) {
 		$cal->setPage($page);
+	}
+	if(!is_null($class)) {
+		$cal->setClasses($class);
 	}
 	if( getOption('calendar_month_year') == 'OPT_MONTH' ) {
 		$cal->printMonthCalendar();
