@@ -42,8 +42,16 @@ class Calendar {
 	private $minDate;
 	private $maxDate;
 	private $strToTime;
-	private $pageDisplay;
-	private $classes;
+	private $pageDisplay = 'archive';
+	private $classes = array(
+			'calendar' => 'calendar',
+			'year' => 'year',
+			'month' => 'month',
+			'first' => 'first',
+			'weekday' => 'weekday',
+			'empty' => 'empty',
+			'day' => 'day'
+			);
 	
 	/**
 	 * class constructor
@@ -108,17 +116,9 @@ class Calendar {
 		$this->minDate = $this->year . '-' . $this->month . '-01';
 		$this->maxDate = $this->year . '-' . ($this->month+1) . '-01'; // Last day of the month
 		$this->strToTime = strtotime( $this->minDate );
-		$this->pageDisplay = 'archive';
+		//$this->pageDisplay
 		setOptionDefault('calendar_month_year', 'OPT_MONTH');
-		$this->classes = array(
-			'calendar' => 'calendar',
-			'year' => 'year',
-			'month' => 'month',
-			'first' => 'first',
-			'weekday' => 'weekday',
-			'empty' => 'empty',
-			'day' => 'day'
-			);
+		//$this->classes
 	}
 
 	/**
