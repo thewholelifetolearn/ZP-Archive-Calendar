@@ -8,11 +8,15 @@
  * @package plugins
  *
  *
+ * version 1.0: Creation of the plug-in
+ * version 1.1: Improvement of the code
+ * version 1.2: Added possible custom CSS
+ * version 1.52: dépassement de tableau dans la fonction "next_calendar_image()"
  */
 
-$plugin_description = gettext_pl("Prints a calendar with a picture in each day where pictures belong to.", 'archive_calendar');
-$plugin_author = "The Whole Life To Learn";
-$plugin_version = '2.00';
+$plugin_description = gettext("Prints a calendar with a picture in each day where pictures belong to.");
+$plugin_author = "the Whole Life To Learn";
+$plugin_version = '2.00'; 
 $option_interface = 'Calendar';
 
 if (in_context(ZP_INDEX)) {
@@ -38,6 +42,7 @@ class Calendar {
 	private $minDate;
 	private $maxDate;
 	private $strToTime;
+	private $pageDisplay;
 	
 	/**
 	 * class constructor
@@ -55,14 +60,14 @@ class Calendar {
 	 */
 	function getOptionsSupported() {
 		$tmp = array(
-			gettext_pl('Monthy/Yearly', 'archive_calendar') => array(
+			gettext('Monthy/Yearly') => array(
 				'key' => 'calendar_month_year',
 				'type' => OPTION_TYPE_RADIO,
 				'buttons' => array(
-					gettext_pl('Monthly', 'archive_calendar') => 'OPT_MONTH',
-					gettext_pl('Yearly', 'archive_calendar') => 'OPT_YEAR'
+					gettext('Monthly') => 'OPT_MONTH',
+					gettext('Yearly') => 'OPT_YEAR'
 				),
-				'desc' => gettext_pl('Choose if you wish to display a monthly calendar (1 month per page or a yearly calendar (12 month per page)', 'archive_calendar')
+				'desc' => gettext('Choose if you wish to display a monthly calendar (1 month per page or a yearly calendar (12 month per page)')
 			)
 		);
 		
@@ -102,6 +107,7 @@ class Calendar {
 		$this->minDate = $this->year . '-' . $this->month . '-01';
 		$this->maxDate = $this->year . '-' . ($this->month+1) . '-01'; // Last day of the month
 		$this->strToTime = strtotime( $this->minDate );
+		$this->pageDisplay = 'archive';
 		setOptionDefault('calendar_month_year', 'OPT_MONTH');
 	}
 
@@ -168,23 +174,23 @@ class Calendar {
 		$line = '<li class="month">';
 		
 		if( getOption('calendar_month_year') == 'OPT_MONTH' ) {
-			$line .= '<a href="' . WEBPATH . '/index.php?p=archive&year=' . date('Y', strtotime( $this->minDate . ' -1 Month') ) . '&month=' . date('m', strtotime( $this->minDate . ' -1 Month') ) . '" id="prev">&lt;&lt;</a>';
-			$line .= ' ' . ucfirst( strftime('%B', $this->strToTime ) ) .' '. $this->year . ' ';
-			$line .= '<a href="' . WEBPATH . '/index.php?p=archive&year=' . date('Y', strtotime( $this->minDate . ' +1 Month') ) . '&month=' . date('m', strtotime( $this->minDate . ' +1 Month') ) . '" id="next">&gt;&gt;</a>';
-		} elseif( getOption('calendar_month_year') == 'OPT_YEAR' ) {
-			$line .= '<a href="' . WEBPATH . '/index.php?p=archive&year=' . date('Y', strtotime( $this->minDate . ' -1 Year') ) . '&month=' . date('m', strtotime( $this->minDate . ' -1 Year') ) . '" id="prev">&lt;&lt;</a>';
+			$line .= '<a href="' . WEBPATH . '/index.php?p='.$this->pageDisplay.'&year=' . date('Y', strtotime( $this->minDate . ' -1 Month') ) . '&month=' . date('m', strtotime( $this->minDate . ' -1 Month') ) . '" id="prev">&lt;&lt;</a>';
 			$line .= ' ' . strftime('%B', $this->strToTime ) .' '. $this->year . ' ';
-			$line .= '<a href="' . WEBPATH . '/index.php?p=archive&year=' . date('Y', strtotime( $this->minDate . ' +1 Year') ) . '&month=' . date('m', strtotime( $this->minDate . ' +1 Year') ) . '" id="next">&gt;&gt;</a>';
+			$line .= '<a href="' . WEBPATH . '/index.php?p='.$this->pageDisplay.'&year=' . date('Y', strtotime( $this->minDate . ' +1 Month') ) . '&month=' . date('m', strtotime( $this->minDate . ' +1 Month') ) . '" id="next">&gt;&gt;</a>';
+		} elseif( getOption('calendar_month_year') == 'OPT_YEAR' ) {
+			$line .= '<a href="' . WEBPATH . '/index.php?p='.$this->pageDisplay.'&year=' . date('Y', strtotime( $this->minDate . ' -1 Year') ) . '&month=' . date('m', strtotime( $this->minDate . ' -1 Year') ) . '" id="prev">&lt;&lt;</a>';
+			$line .= ' ' . strftime('%B', $this->strToTime ) .' '. $this->year . ' ';
+			$line .= '<a href="' . WEBPATH . '/index.php?p='.$this->pageDisplay.'&year=' . date('Y', strtotime( $this->minDate . ' +1 Year') ) . '&month=' . date('m', strtotime( $this->minDate . ' +1 Year') ) . '" id="next">&gt;&gt;</a>';
 		}
 		
 		$line .= '</li>';
-		$line .= '<li class="first weekday">'.ucfirst( strftime('%A', strtotime('2009-12-07' ) ) ).'</li>';
-		$line .= '<li class="weekday">'.ucfirst( strftime('%A', strtotime('2009-12-08' ) ) ).'</li>';
-		$line .= '<li class="weekday">'.ucfirst( strftime('%A', strtotime('2009-12-09' ) ) ).'</li>';
-		$line .= '<li class="weekday">'.ucfirst( strftime('%A', strtotime('2009-12-10' ) ) ).'</li>';
-		$line .= '<li class="weekday">'.ucfirst( strftime('%A', strtotime('2009-12-11' ) ) ).'</li>';
-		$line .= '<li class="weekday">'.ucfirst( strftime('%A', strtotime('2009-12-12' ) ) ).'</li>';
-		$line .= '<li class="weekday">'.ucfirst( strftime('%A', strtotime('2009-12-13' ) ) ).'</li>';
+		$line .= '<li class="first weekday">'.strftime('%A', strtotime('2009-12-07' ) ).'</li>';
+		$line .= '<li class="weekday">'.strftime('%A', strtotime('2009-12-08' ) ).'</li>';
+		$line .= '<li class="weekday">'.strftime('%A', strtotime('2009-12-09' ) ).'</li>';
+		$line .= '<li class="weekday">'.strftime('%A', strtotime('2009-12-10' ) ).'</li>';
+		$line .= '<li class="weekday">'.strftime('%A', strtotime('2009-12-11' ) ).'</li>';
+		$line .= '<li class="weekday">'.strftime('%A', strtotime('2009-12-12' ) ).'</li>';
+		$line .= '<li class="weekday">'.strftime('%A', strtotime('2009-12-13' ) ).'</li>';
 		
 		return $line;
 	}
@@ -228,6 +234,10 @@ class Calendar {
 		
 		return $line;
 	}
+	
+	public function setPage($page) {
+		$this->pageDisplay = $page;
+	}
 
 	/**
 	 * Get the monthly calendar
@@ -248,7 +258,6 @@ class Calendar {
 	public function printMonthCalendar() {
 		echo '<ul id="calendar">';
 		echo $this->getMonthCalendar();
-                echo '<div class="clear"></div>';
 		echo '</ul>';
 	}
 	
@@ -276,7 +285,6 @@ class Calendar {
 	public function printYearCalendar() {
 		echo '<ul id="calendar">';
 		echo $this->getYearCalendar();
-                echo '<div class="clear"></div>';
 		echo '</ul>';
 	}
 }
@@ -305,8 +313,11 @@ function getYearCalendar() {
  * Prints a monthly or yearly based calendar depending on the option defined in the administration panel
  *
  */
-function printCalendar() {
+function printCalendar($page = null) {
 	$cal = new Calendar();
+	if(!is_null($page)) {
+		$cal->setPage($page);
+	}
 	if( getOption('calendar_month_year') == 'OPT_MONTH' ) {
 		$cal->printMonthCalendar();
 	} elseif( getOption('calendar_month_year') == 'OPT_YEAR' ) {
