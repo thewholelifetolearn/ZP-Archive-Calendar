@@ -15,9 +15,10 @@
  */
 
 $plugin_description = gettext("Prints a calendar with a picture in each day where pictures belong to.");
-$plugin_author = "the Whole Life To Learn";
-$plugin_version = '2.00'; 
+$plugin_author = "The Whole Life To Learn";
+$plugin_version = '2.1.0'; 
 $option_interface = 'Calendar';
+$plugin_URL = 'http://www.thewholeliftolearn.eu';
 
 if (in_context(ZP_INDEX)) {
 	zp_register_filter('theme_head','getPluginCss'); // insert the meta tags into the <head></head> if on a theme page.
